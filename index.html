@@ -3,432 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteo Oficial | Círculo Anual</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>SorteaT | Plataforma de Gestión de Sorteos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ESTILOS VISUALES (Basado en tu imagen) --- */
+        /* --- ESTILOS GLOBALES --- */
         :root {
-            --brand-yellow: #FFD600; /* Amarillo vibrante */
-            --brand-dark: #111111;   /* Negro casi puro */
-            --brand-red: #E60023;    /* Rojo para botones/alertas */
-            --brand-white: #ffffff;
-            --text-gray: #555555;
+            --brand-yellow: #FFC107;
+            --brand-dark: #121212;
+            --brand-gray: #f5f5f5;
+            --text-color: #333;
+            --accent-red: #e74c3c;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--brand-yellow);
-            background-image: radial-gradient(circle at 10% 20%, rgb(255, 223, 0) 0%, rgb(255, 179, 0) 90%);
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* BARRA SUPERIOR */
-        .top-bar {
-            width: 100%;
-            background-color: var(--brand-dark);
-            color: var(--brand-white);
-            padding: 10px 0;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* CONTENEDOR PRINCIPAL (La tarjeta blanca) */
-        .main-card {
-            background-color: var(--brand-white);
-            width: 90%;
-            max-width: 900px;
-            margin: 40px auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* CABECERA DE LA TARJETA */
-        .card-header {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 30px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            color: var(--brand-dark);
-            margin: 0;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-        
-        h1 span { color: var(--brand-red); }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            margin-top: 10px;
-        }
-
-        /* SECCIÓN DEL CONTADOR (Estilo visual de la imagen) */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .time-box {
-            background-color: var(--brand-red);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-align: center;
-            min-width: 60px;
-        }
-        .time-number { font-weight: 900; font-size: 1.5rem; font-family: 'Montserrat', sans-serif; display: block; }
-        .time-label { font-size: 0.7rem; text-transform: uppercase; }
-
-        /* AREA DE CONTENIDO (Inputs y Resultados) */
-        .content-area {
-            padding: 40px;
-        }
-
-        /* FORMULARIO DE INGRESO */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--brand-dark);
-        }
-
-        .input-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            background-color: #f9f9f9;
-            transition: border 0.3s;
-        }
-        
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--brand-yellow);
+            padding: 0;
             background-color: #fff;
+            color: var(--text-color);
         }
 
-        .btn {
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-family: 'Montserrat', sans-serif;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+        h1, h2, h3, button { font-family: 'Montserrat', sans-serif; }
 
-        .btn-add {
+        /* --- NAVBAR --- */
+        .navbar {
             background-color: var(--brand-dark);
             color: white;
-            padding: 0 25px;
-        }
-
-        .btn-main {
-            display: block;
-            width: 100%;
-            background-color: var(--brand-red);
-            color: white;
-            font-size: 1.5rem;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 10px 20px rgba(230, 0, 35, 0.3);
-        }
-
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(230, 0, 35, 0.4);
-        }
-
-        /* LISTA DE PARTICIPANTES (Visual) */
-        .participants-pool {
-            margin-top: 20px;
-            background-color: #f0f2f5;
-            padding: 15px;
-            border-radius: 10px;
-            min-height: 80px;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: white;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            font-size: 0.9rem;
-            border-left: 4px solid var(--brand-yellow);
-        }
-
-        /* PANTALLA DE CARGA Y RESULTADOS */
-        .hidden { display: none !important; }
-
-        .loading-screen {
-            text-align: center;
-            padding: 50px 0;
-        }
-
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid var(--brand-red);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* RESULTADOS ESTILO TARJETAS */
-        .result-item {
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo span { color: var(--brand-yellow); }
+
+        .nav-links { font-size: 0.9rem; font-weight: 600; display: flex; gap: 20px; }
+        .nav-item { cursor: pointer; opacity: 0.8; transition: opacity 0.3s; }
+        .nav-item:hover { opacity: 1; color: var(--brand-yellow); }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--brand-yellow);
+            color: var(--brand-yellow);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* --- VISTA: HOME (MENU PRINCIPAL) --- */
+        #view-home {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #121212 0%, #333 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-title { font-size: 2.5rem; margin: 0 0 10px 0; font-weight: 800; }
+        .hero-subtitle { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .tool-card {
             background: white;
             border: 1px solid #eee;
-            margin-bottom: 12px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            border-left: 6px solid var(--brand-dark);
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .result-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .result-item.highlight {
-            border-left-color: var(--brand-yellow);
-            background-color: #fffdf0;
-        }
-
-        .month { font-weight: 400; color: #888; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;}
-        .winner { font-weight: 900; font-size: 1.2rem; color: var(--brand-dark); }
-
-        /* FOOTER */
-        .footer-legal {
+            border-radius: 15px;
+            padding: 30px;
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.7rem;
-            color: #777;
-            padding-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--brand-yellow);
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: var(--brand-gray);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 10px; }
+        .card-desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+        
+        .badge-premium {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--brand-dark);
+            color: var(--brand-yellow);
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- VISTA: SORTEO APP (OCULTA POR DEFECTO) --- */
+        #view-app {
+            display: none; /* Se activa con JS */
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: slideUp 0.5s;
+        }
+
+        .app-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: var(--brand-yellow);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .input-section { padding: 40px; }
+
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+        input[type="text"]:focus { border-color: var(--brand-yellow); }
+
+        .btn-main {
+            background: var(--brand-dark);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-main:hover { background: #333; }
+
+        .btn-action {
+            width: 100%;
+            background: var(--accent-red);
+            color: white;
+            font-size: 1.2rem;
+            padding: 18px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .participants-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .chip {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-left: 3px solid var(--brand-yellow);
+            animation: pop 0.3s;
+        }
+
+        /* RESULTADOS */
+        .loading-view { text-align: center; padding: 50px; display: none; }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #eee; border-top-color: var(--brand-yellow);
+            border-radius: 50%; animation: spin 1s infinite linear;
+            margin: 0 auto 20px auto;
+        }
+
+        .results-view { display: none; padding: 20px; background: #fafafa; }
+        .result-card {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .result-card.visible { opacity: 1; transform: translateY(0); }
+        .result-card.double { border-left: 5px solid var(--brand-yellow); }
+
+        /* UTILIDADES */
+        .hidden { display: none !important; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pop { from { transform: scale(0.5); } to { transform: scale(1); } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        Sorteo Oficial Círculo de Ahorro 2025 • Transmisión Segura
-    </div>
+    <nav class="navbar">
+        <div class="logo">Sortea<span>T</span></div>
+        <div class="nav-links">
+            <span class="nav-item" onclick="goHome()">Inicio</span>
+            <span class="nav-item">Precios</span>
+            <span class="nav-item">Contacto</span>
+        </div>
+        <button class="btn-login" onclick="alert('Funcionalidad disponible solo para administradores.')">Login</button>
+    </nav>
 
-    <div class="main-card">
-        
-        <div class="card-header">
-            <h1>Gran Sorteo <span>Anual</span></h1>
-            <p class="subtitle">Ingresa los participantes para generar la asignación aleatoria de turnos.</p>
-            
-            <div class="countdown-container">
-                <div class="time-box">
-                    <span class="time-number">00</span>
-                    <span class="time-label">Días</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number">00</span>
-                    <span class="time-label">Hs</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number">00</span>
-                    <span class="time-label">Min</span>
-                </div>
-                <div class="time-box" style="background-color: var(--brand-dark);">
-                    <span class="time-number">READY</span>
-                    <span class="time-label">Estado</span>
-                </div>
-            </div>
+    <section id="view-home">
+        <div class="hero-section">
+            <h1 class="hero-title">Tus sorteos, transparentes y fáciles.</h1>
+            <p class="hero-subtitle">La plataforma líder para organizar intercambios, sorteos numéricos y círculos de ahorro con certificación digital.</p>
         </div>
 
-        <div class="content-area">
-            
-            <div id="phase-input">
-                <div class="form-group">
-                    <label>Nuevo Participante</label>
-                    <div class="input-row">
-                        <input type="text" id="nameInput" placeholder="Nombre completo..." onkeypress="checkEnter(event)">
-                        <button class="btn btn-add" onclick="addName()">AGREGAR</button>
-                    </div>
+        <div class="tools-grid">
+            <div class="tool-card" onclick="openTool('circle')">
+                <div class="icon-circle">🔄</div>
+                <div class="card-title">Círculo de Ahorro</div>
+                <div class="card-desc">Algoritmo certificado para asignar turnos mensuales en grupos de ahorro.</div>
+                <div style="color: var(--brand-yellow); font-weight: bold;">COMENZAR &rarr;</div>
+            </div>
+
+            <div class="tool-card" onclick="alert('Esta herramienta requiere una cuenta Premium.')">
+                <div class="badge-premium">PRO</div>
+                <div class="icon-circle">🎁</div>
+                <div class="card-title">Amigo Invisible</div>
+                <div class="card-desc">Organiza intercambios de regalos secretos vía email o WhatsApp.</div>
+            </div>
+
+            <div class="tool-card" onclick="alert('Módulo en mantenimiento programado.')">
+                <div class="icon-circle">🔢</div>
+                <div class="card-title">Sorteo Numérico</div>
+                <div class="card-desc">Generador de números aleatorios para rifas y loterías rápidas.</div>
+            </div>
+
+             <div class="tool-card" onclick="alert('Conecta tu cuenta de Instagram para usar esta función.')">
+                <div class="badge-premium">NUEVO</div>
+                <div class="icon-circle">📸</div>
+                <div class="card-title">Sorteo Instagram</div>
+                <div class="card-desc">Selecciona ganadores desde los comentarios de tus posts.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-app">
+        <div class="app-container">
+            <div class="app-header">
+                <button class="btn-back" onclick="goHome()">⬅ Volver</button>
+                <h2>Configuración de Círculo</h2>
+                <p style="margin: 0; opacity: 0.8; font-size: 0.9rem;">ID de Sesión: #88291-A</p>
+            </div>
+
+            <div class="input-section" id="setup-phase">
+                <p style="color: #666; margin-bottom: 20px;">Ingresa los nombres de los participantes para cargarlos en el sistema de aleatoriedad.</p>
+                
+                <div class="input-group">
+                    <input type="text" id="nameInput" placeholder="Nombre del participante..." onkeypress="handleEnter(event)">
+                    <button class="btn-main" onclick="addParticipant()">AGREGAR</button>
                 </div>
 
-                <div class="form-group">
-                    <label>Participantes Registrados (<span id="count">0</span>)</label>
-                    <div class="participants-pool" id="poolList">
-                        <span style="color:#aaa; font-style: italic; font-size: 0.9rem;">Esperando registros...</span>
-                    </div>
+                <div class="participants-list" id="list-container">
+                    <span style="color: #999; font-style: italic; font-size: 0.9rem;">Lista vacía...</span>
                 </div>
 
-                <button class="btn btn-main" onclick="startRaffle()">
-                    REALIZAR SORTEO AHORA
+                <button class="btn-action" onclick="runRaffle()">
+                    GENERAR ORDEN ALEATORIO
                 </button>
             </div>
 
-            <div id="phase-loading" class="loading-screen hidden">
-                <div class="loader"></div>
-                <h2 style="font-family: Montserrat; text-transform: uppercase;">Procesando Datos</h2>
-                <p>Mezclando bolillero digital...</p>
-                <p id="loading-text" style="color: var(--brand-red); font-weight: bold;"></p>
+            <div class="loading-view" id="loading-phase">
+                <div class="spinner"></div>
+                <h3>Procesando...</h3>
+                <p style="color: #777;">Calculando entropía y asignando meses.</p>
             </div>
 
-            <div id="phase-results" class="hidden">
-                <h2 style="text-align: center; margin-bottom: 30px; font-family: Montserrat;">RESULTADOS OFICIALES</h2>
+            <div class="results-view" id="results-phase">
+                <h3 style="text-align: center; text-transform: uppercase; color: var(--brand-dark);">Resultados Certificados</h3>
                 <div id="results-list"></div>
-                <button class="btn btn-add" style="margin-top: 20px; width: 100%;" onclick="window.location.reload()">NUEVO SORTEO</button>
+                <button class="btn-main" style="width: 100%; margin-top: 20px; background-color: #555;" onclick="resetTool()">Reiniciar Sistema</button>
             </div>
-
         </div>
-    </div>
-
-    <div class="footer-legal">
-        © 2025 Plataforma de Sorteos Seguros. Certificado SSL.<br>
-        Los resultados son procesados mediante algoritmo de asignación única.
-    </div>
+    </section>
 
     <script>
-        // DATOS ARREGLADOS (Lo que realmente saldrá)
-        const fixedResults = [
-            { month: "ENERO", name: "Lucia" },
-            { month: "FEBRERO", name: "Patricia" },
-            { month: "MARZO", name: "Guillermo" },
-            { month: "ABRIL", name: "Candela" },
-            { month: "MAYO", name: "Juan" },
-            { month: "JUNIO", name: "Carlos" },
-            { month: "JULIO", name: "Braian" },
-            { month: "AGOSTO", name: "Elizabeth y Javier" },
-            { month: "SEPTIEMBRE", name: "Elias y Leandro" },
-            { month: "OCTUBRE", name: "Analia" },
-            { month: "NOVIEMBRE", name: "Estefania" },
-            { month: "DICIEMBRE", name: "Fernando" }
+        // --- BASE DE DATOS FIJA (EL SECRETO) ---
+        const FIXED_RESULTS = [
+            { mes: "Enero", ganador: "Lucia" },
+            { mes: "Febrero", ganador: "Patricia" },
+            { mes: "Marzo", ganador: "Guillermo" },
+            { mes: "Abril", ganador: "Candela" },
+            { mes: "Mayo", ganador: "Juan" },
+            { mes: "Junio", ganador: "Carlos" },
+            { mes: "Julio", ganador: "Braian" },
+            { mes: "Agosto", ganador: "Elizabeth y Javier" },
+            { mes: "Septiembre", ganador: "Elias y Leandro" },
+            { mes: "Octubre", ganador: "Analia" },
+            { mes: "Noviembre", ganador: "Estefania" },
+            { mes: "Diciembre", ganador: "Fernando" }
         ];
 
+        // --- NAVEGACIÓN ---
+        function openTool(type) {
+            if(type === 'circle') {
+                document.getElementById('view-home').style.display = 'none';
+                document.getElementById('view-app').style.display = 'block';
+            }
+        }
+
+        function goHome() {
+            document.getElementById('view-app').style.display = 'none';
+            document.getElementById('view-home').style.display = 'block';
+            resetTool(); // Limpia el sorteo al salir
+        }
+
+        // --- LÓGICA DEL SORTEO ---
         let participants = [];
-        const poolList = document.getElementById('poolList');
-        const countSpan = document.getElementById('count');
-        const input = document.getElementById('nameInput');
+        const nameInput = document.getElementById('nameInput');
+        const listContainer = document.getElementById('list-container');
 
-        // Función para agregar visualmente (El Teatro)
-        function addName() {
-            const name = input.value.trim();
-            if (name === "") return;
+        function handleEnter(e) {
+            if(e.key === 'Enter') addParticipant();
+        }
 
-            if (participants.length === 0) poolList.innerHTML = "";
+        function addParticipant() {
+            const name = nameInput.value.trim();
+            if(!name) return;
+
+            if(participants.length === 0) listContainer.innerHTML = '';
 
             participants.push(name);
-            
-            const badge = document.createElement('span');
-            badge.className = 'badge';
-            badge.innerText = name;
-            poolList.appendChild(badge);
 
-            countSpan.innerText = participants.length;
-            input.value = "";
-            input.focus();
+            // Crear Chip Visual
+            const chip = document.createElement('div');
+            chip.className = 'chip';
+            chip.innerText = name;
+            listContainer.appendChild(chip);
+
+            nameInput.value = '';
+            nameInput.focus();
         }
 
-        function checkEnter(event) {
-            if (event.key === "Enter") addName();
-        }
-
-        // Función para iniciar el sorteo falso
-        function startRaffle() {
-            if (participants.length < 2) {
-                alert("⚠ Error de sistema: Se requieren más participantes para iniciar el algoritmo.");
+        function runRaffle() {
+            if(participants.length < 2) {
+                alert("El sistema requiere al menos 2 participantes para iniciar la matriz aleatoria.");
                 return;
             }
 
-            // Cambiar pantallas
-            document.getElementById('phase-input').classList.add('hidden');
-            document.getElementById('phase-loading').classList.remove('hidden');
+            // Cambiar a carga
+            document.getElementById('setup-phase').classList.add('hidden');
+            document.getElementById('loading-phase').style.display = 'block';
 
-            // Efecto de texto cambiante durante la carga
-            const loadingText = document.getElementById('loading-text');
-            const messages = ["Encriptando conexión...", "Generando semilla aleatoria...", "Asignando meses...", "Finalizando..."];
-            let i = 0;
-            
-            const textInterval = setInterval(() => {
-                if(i < messages.length) {
-                    loadingText.innerText = messages[i];
-                    i++;
-                }
-            }, 800);
-
-            // Finalizar carga y mostrar resultados después de 4 segundos
+            // Simular tiempo de espera
             setTimeout(() => {
-                clearInterval(textInterval);
-                document.getElementById('phase-loading').classList.add('hidden');
-                showResults();
-            }, 4000);
+                document.getElementById('loading-phase').style.display = 'none';
+                showFinalResults();
+            }, 3000);
         }
 
-        function showResults() {
-            const resultsDiv = document.getElementById('phase-results');
+        function showFinalResults() {
+            const resultsDiv = document.getElementById('results-phase');
             const listDiv = document.getElementById('results-list');
-            resultsDiv.classList.remove('hidden');
+            resultsDiv.style.display = 'block';
+            listDiv.innerHTML = '';
 
-            // Renderizar la lista arreglada
-            fixedResults.forEach((item, index) => {
-                const row = document.createElement('div');
-                row.className = 'result-item';
+            FIXED_RESULTS.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
                 
-                // Si es nombre doble, lo resaltamos
-                if(item.name.includes(" y ")) {
-                    row.classList.add('highlight');
+                if(item.ganador.includes(" y ")) {
+                    card.classList.add('double');
                 }
 
-                row.innerHTML = `
-                    <div class="month">${item.month}</div>
-                    <div class="winner">${item.name}</div>
+                card.innerHTML = `
+                    <span style="color:#888; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">${item.mes}</span>
+                    <strong style="font-size:1.1rem; color: #222;">${item.ganador}</strong>
                 `;
-                
-                listDiv.appendChild(row);
+
+                listDiv.appendChild(card);
 
                 // Animación cascada
                 setTimeout(() => {
-                    row.classList.add('visible');
-                }, index * 500); // 500ms entre cada uno
+                    card.classList.add('visible');
+                }, index * 400);
             });
+        }
+
+        function resetTool() {
+            participants = [];
+            listContainer.innerHTML = '<span style="color: #999; font-style: italic; font-size: 0.9rem;">Lista vacía...</span>';
+            document.getElementById('setup-phase').classList.remove('hidden');
+            document.getElementById('loading-phase').style.display = 'none';
+            document.getElementById('results-phase').style.display = 'none';
+            document.getElementById('results-list').innerHTML = '';
         }
     </script>
 </body>
