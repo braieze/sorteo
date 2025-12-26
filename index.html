@@ -3,348 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteo Círculo 2024 - Oficial</title>
+    <title>Sorteo Oficial | Círculo Anual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- ESTILOS PROFESIONALES (CSS) --- */
+        /* --- ESTILOS VISUALES (Basado en tu imagen) --- */
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #64748b;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --success: #10b981;
-            --accent: #f59e0b;
+            --brand-yellow: #FFD600; /* Amarillo vibrante */
+            --brand-dark: #111111;   /* Negro casi puro */
+            --brand-red: #E60023;    /* Rojo para botones/alertas */
+            --brand-white: #ffffff;
+            --text-gray: #555555;
         }
 
         body {
-            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--brand-yellow);
+            background-image: radial-gradient(circle at 10% 20%, rgb(255, 223, 0) 0%, rgb(255, 179, 0) 90%);
             margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
         }
 
-        .container {
+        /* BARRA SUPERIOR */
+        .top-bar {
             width: 100%;
-            max-width: 700px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 40px;
-            box-sizing: border-box;
+            background-color: var(--brand-dark);
+            color: var(--brand-white);
+            padding: 10px 0;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        header {
+        /* CONTENEDOR PRINCIPAL (La tarjeta blanca) */
+        .main-card {
+            background-color: var(--brand-white);
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* CABECERA DE LA TARJETA */
+        .card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
         }
 
         h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: var(--brand-dark);
             margin: 0;
-            font-size: 2rem;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        
+        h1 span { color: var(--brand-red); }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-top: 10px;
         }
 
-        p.subtitle {
-            margin: 10px 0 0;
-            color: var(--secondary);
-            font-size: 1rem;
-        }
-
-        /* INPUT AREA */
-        .input-group {
+        /* SECCIÓN DEL CONTADOR (Estilo visual de la imagen) */
+        .countdown-container {
             display: flex;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .time-box {
+            background-color: var(--brand-red);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 60px;
+        }
+        .time-number { font-weight: 900; font-size: 1.5rem; font-family: 'Montserrat', sans-serif; display: block; }
+        .time-label { font-size: 0.7rem; text-transform: uppercase; }
+
+        /* AREA DE CONTENIDO (Inputs y Resultados) */
+        .content-area {
+            padding: 40px;
+        }
+
+        /* FORMULARIO DE INGRESO */
+        .form-group {
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
-            flex-grow: 1;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            outline: none;
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--brand-dark);
         }
 
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            transition: border 0.3s;
+        }
+        
         input[type="text"]:focus {
-            border-color: var(--primary);
+            outline: none;
+            border-color: var(--brand-yellow);
+            background-color: #fff;
         }
 
         .btn {
-            padding: 12px 24px;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
             cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .btn-add {
-            background-color: var(--secondary);
+            background-color: var(--brand-dark);
             color: white;
+            padding: 0 25px;
+        }
+
+        .btn-main {
+            display: block;
+            width: 100%;
+            background-color: var(--brand-red);
+            color: white;
+            font-size: 1.5rem;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 10px 20px rgba(230, 0, 35, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(230, 0, 35, 0.4);
+        }
+
+        /* LISTA DE PARTICIPANTES (Visual) */
+        .participants-pool {
+            margin-top: 20px;
+            background-color: #f0f2f5;
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 80px;
         }
         
-        .btn-add:hover { background-color: #475569; }
-
-        .btn-sortear {
-            background-color: var(--primary);
-            color: white;
-            width: 100%;
-            padding: 16px;
-            font-size: 1.2rem;
-            margin-top: 30px;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-sortear:hover { background-color: var(--primary-dark); }
-        .btn-sortear:disabled { background-color: #cbd5e1; cursor: not-allowed; }
-
-        /* LISTA DE PARTICIPANTES VISUAL */
-        .pool-container {
-            background-color: #f1f5f9;
-            border-radius: 12px;
-            padding: 20px;
-            min-height: 100px;
-        }
-
-        .pool-header {
+        .badge {
+            display: inline-block;
+            background: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             font-size: 0.9rem;
-            text-transform: uppercase;
-            color: var(--secondary);
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+            border-left: 4px solid var(--brand-yellow);
         }
 
-        .chips-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        /* PANTALLA DE CARGA Y RESULTADOS */
+        .hidden { display: none !important; }
 
-        .chip {
-            background-color: white;
-            border: 1px solid #e2e8f0;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        /* RESULTADOS */
-        .results-area {
-            display: none; /* Oculto al principio */
-            margin-top: 30px;
-        }
-
-        .loading-state {
+        .loading-screen {
             text-align: center;
-            padding: 40px;
-            display: none;
+            padding: 50px 0;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #e2e8f0;
-            border-top: 4px solid var(--primary);
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid var(--brand-red);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
-
+        
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .month-card {
-            background: white;
-            border-left: 6px solid var(--primary);
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        /* RESULTADOS ESTILO TARJETAS */
+        .result-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: white;
+            border: 1px solid #eee;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 6px solid var(--brand-dark);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            transform: translateX(-20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .month-card.visible { opacity: 1; transform: translateY(0); }
-        
-        .month-card.double { border-left-color: var(--accent); background-color: #fffbeb; }
+        .result-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
-        .month-label { font-size: 0.9rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px; }
-        .winner-name { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .result-item.highlight {
+            border-left-color: var(--brand-yellow);
+            background-color: #fffdf0;
+        }
 
-        /* UTILS */
-        .hidden { display: none !important; }
+        .month { font-weight: 400; color: #888; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;}
+        .winner { font-weight: 900; font-size: 1.2rem; color: var(--brand-dark); }
+
+        /* FOOTER */
+        .footer-legal {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #777;
+            padding-bottom: 20px;
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Sorteo Círculo</h1>
-            <p class="subtitle">Asignación Anual de Turnos</p>
-        </header>
+    <div class="top-bar">
+        Sorteo Oficial Círculo de Ahorro 2025 • Transmisión Segura
+    </div>
 
-        <div id="setup-phase">
-            <div class="input-group">
-                <input type="text" id="inputNombre" placeholder="Escribe nombre del participante..." onkeypress="handleEnter(event)">
-                <button class="btn btn-add" onclick="agregarParticipante()">Agregar</button>
-            </div>
-
-            <div class="pool-container">
-                <div class="pool-header">
-                    <span>Participantes en el bolillero</span>
-                    <span id="contador">0</span>
+    <div class="main-card">
+        
+        <div class="card-header">
+            <h1>Gran Sorteo <span>Anual</span></h1>
+            <p class="subtitle">Ingresa los participantes para generar la asignación aleatoria de turnos.</p>
+            
+            <div class="countdown-container">
+                <div class="time-box">
+                    <span class="time-number">00</span>
+                    <span class="time-label">Días</span>
                 </div>
-                <div class="chips-wrapper" id="listaVisual">
-                    <span style="color:#94a3b8; font-style:italic; font-size:0.9rem;" id="placeholder-text">La lista está vacía...</span>
+                <div class="time-box">
+                    <span class="time-number">00</span>
+                    <span class="time-label">Hs</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number">00</span>
+                    <span class="time-label">Min</span>
+                </div>
+                <div class="time-box" style="background-color: var(--brand-dark);">
+                    <span class="time-number">READY</span>
+                    <span class="time-label">Estado</span>
                 </div>
             </div>
-
-            <button class="btn btn-sortear" id="btnSortear" onclick="iniciarSorteo()">
-                🎲 Realizar Sorteo Oficial
-            </button>
         </div>
 
-        <div id="loading-phase" class="loading-state">
-            <div class="spinner"></div>
-            <h3>Procesando algoritmo...</h3>
-            <p style="color: #64748b">Mezclando participantes y asignando meses.</p>
-        </div>
+        <div class="content-area">
+            
+            <div id="phase-input">
+                <div class="form-group">
+                    <label>Nuevo Participante</label>
+                    <div class="input-row">
+                        <input type="text" id="nameInput" placeholder="Nombre completo..." onkeypress="checkEnter(event)">
+                        <button class="btn btn-add" onclick="addName()">AGREGAR</button>
+                    </div>
+                </div>
 
-        <div id="results-phase" class="results-area">
-            <h2 style="text-align: center; color: var(--success); margin-bottom: 30px;">Resultados Finales</h2>
-            <div id="lista-resultados"></div>
+                <div class="form-group">
+                    <label>Participantes Registrados (<span id="count">0</span>)</label>
+                    <div class="participants-pool" id="poolList">
+                        <span style="color:#aaa; font-style: italic; font-size: 0.9rem;">Esperando registros...</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-main" onclick="startRaffle()">
+                    REALIZAR SORTEO AHORA
+                </button>
+            </div>
+
+            <div id="phase-loading" class="loading-screen hidden">
+                <div class="loader"></div>
+                <h2 style="font-family: Montserrat; text-transform: uppercase;">Procesando Datos</h2>
+                <p>Mezclando bolillero digital...</p>
+                <p id="loading-text" style="color: var(--brand-red); font-weight: bold;"></p>
+            </div>
+
+            <div id="phase-results" class="hidden">
+                <h2 style="text-align: center; margin-bottom: 30px; font-family: Montserrat;">RESULTADOS OFICIALES</h2>
+                <div id="results-list"></div>
+                <button class="btn btn-add" style="margin-top: 20px; width: 100%;" onclick="window.location.reload()">NUEVO SORTEO</button>
+            </div>
+
         </div>
     </div>
 
+    <div class="footer-legal">
+        © 2025 Plataforma de Sorteos Seguros. Certificado SSL.<br>
+        Los resultados son procesados mediante algoritmo de asignación única.
+    </div>
+
     <script>
-        // --- CONFIGURACIÓN DEL SORTEO (ARREGLADO) ---
-        // Estos son los resultados que SALDRÁN SIEMPRE, sin importar qué nombres escribas.
-        const resultadosFijos = [
-            { mes: "Enero", ganador: "Lucia" },
-            { mes: "Febrero", ganador: "Patricia" },
-            { mes: "Marzo", ganador: "Guillermo" },
-            { mes: "Abril", ganador: "Candela" },
-            { mes: "Mayo", ganador: "Juan" },
-            { mes: "Junio", ganador: "Carlos" },
-            { mes: "Julio", ganador: "Braian" },
-            { mes: "Agosto", ganador: "Elizabeth y Javier" },
-            { mes: "Septiembre", ganador: "Elias y Leandro" },
-            { mes: "Octubre", ganador: "Analia" },
-            { mes: "Noviembre", ganador: "Estefania" },
-            { mes: "Diciembre", ganador: "Fernando" }
+        // DATOS ARREGLADOS (Lo que realmente saldrá)
+        const fixedResults = [
+            { month: "ENERO", name: "Lucia" },
+            { month: "FEBRERO", name: "Patricia" },
+            { month: "MARZO", name: "Guillermo" },
+            { month: "ABRIL", name: "Candela" },
+            { month: "MAYO", name: "Juan" },
+            { month: "JUNIO", name: "Carlos" },
+            { month: "JULIO", name: "Braian" },
+            { month: "AGOSTO", name: "Elizabeth y Javier" },
+            { month: "SEPTIEMBRE", name: "Elias y Leandro" },
+            { month: "OCTUBRE", name: "Analia" },
+            { month: "NOVIEMBRE", name: "Estefania" },
+            { month: "DICIEMBRE", name: "Fernando" }
         ];
 
-        // --- LÓGICA VISUAL (TEATRO) ---
-        const inputNombre = document.getElementById('inputNombre');
-        const listaVisual = document.getElementById('listaVisual');
-        const placeholder = document.getElementById('placeholder-text');
-        const contador = document.getElementById('contador');
-        let participantesCount = 0;
+        let participants = [];
+        const poolList = document.getElementById('poolList');
+        const countSpan = document.getElementById('count');
+        const input = document.getElementById('nameInput');
 
-        function handleEnter(e) {
-            if (e.key === 'Enter') agregarParticipante();
+        // Función para agregar visualmente (El Teatro)
+        function addName() {
+            const name = input.value.trim();
+            if (name === "") return;
+
+            if (participants.length === 0) poolList.innerHTML = "";
+
+            participants.push(name);
+            
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.innerText = name;
+            poolList.appendChild(badge);
+
+            countSpan.innerText = participants.length;
+            input.value = "";
+            input.focus();
         }
 
-        function agregarParticipante() {
-            const nombre = inputNombre.value.trim();
-            if (!nombre) return;
-
-            // Ocultar texto vacío
-            if (participantesCount === 0) placeholder.style.display = 'none';
-
-            // Crear "chip" visual
-            const chip = document.createElement('div');
-            chip.classList.add('chip');
-            chip.innerText = nombre;
-            listaVisual.appendChild(chip);
-
-            // Actualizar contadores y input
-            participantesCount++;
-            contador.innerText = participantesCount;
-            inputNombre.value = '';
-            inputNombre.focus();
+        function checkEnter(event) {
+            if (event.key === "Enter") addName();
         }
 
-        function iniciarSorteo() {
-            // Pequeña validación para que parezca real (opcional)
-            if (participantesCount < 2) {
-                alert("Por favor, agrega al menos algunos participantes para que el sorteo sea válido.");
+        // Función para iniciar el sorteo falso
+        function startRaffle() {
+            if (participants.length < 2) {
+                alert("⚠ Error de sistema: Se requieren más participantes para iniciar el algoritmo.");
                 return;
             }
 
-            // 1. Ocultar fase de configuración
-            document.getElementById('setup-phase').classList.add('hidden');
-            
-            // 2. Mostrar animación de carga
-            const loading = document.getElementById('loading-phase');
-            loading.style.display = 'block';
+            // Cambiar pantallas
+            document.getElementById('phase-input').classList.add('hidden');
+            document.getElementById('phase-loading').classList.remove('hidden');
 
-            // 3. Esperar 3 segundos (simulando cálculo complejo)
+            // Efecto de texto cambiante durante la carga
+            const loadingText = document.getElementById('loading-text');
+            const messages = ["Encriptando conexión...", "Generando semilla aleatoria...", "Asignando meses...", "Finalizando..."];
+            let i = 0;
+            
+            const textInterval = setInterval(() => {
+                if(i < messages.length) {
+                    loadingText.innerText = messages[i];
+                    i++;
+                }
+            }, 800);
+
+            // Finalizar carga y mostrar resultados después de 4 segundos
             setTimeout(() => {
-                loading.style.display = 'none';
-                mostrarResultados();
-            }, 3000);
+                clearInterval(textInterval);
+                document.getElementById('phase-loading').classList.add('hidden');
+                showResults();
+            }, 4000);
         }
 
-        function mostrarResultados() {
-            const resultsArea = document.getElementById('results-phase');
-            const listaResultados = document.getElementById('lista-resultados');
-            resultsArea.style.display = 'block';
+        function showResults() {
+            const resultsDiv = document.getElementById('phase-results');
+            const listDiv = document.getElementById('results-list');
+            resultsDiv.classList.remove('hidden');
 
-            // Generar las tarjetas basadas en el ARREGLO FIJO (ignora los inputs)
-            resultadosFijos.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.classList.add('month-card');
+            // Renderizar la lista arreglada
+            fixedResults.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = 'result-item';
                 
-                // Detectar dobles para color especial
-                if (item.ganador.includes(" y ")) {
-                    card.classList.add('double');
+                // Si es nombre doble, lo resaltamos
+                if(item.name.includes(" y ")) {
+                    row.classList.add('highlight');
                 }
 
-                card.innerHTML = `
-                    <span class="month-label">${item.mes}</span>
-                    <span class="winner-name">${item.ganador}</span>
+                row.innerHTML = `
+                    <div class="month">${item.month}</div>
+                    <div class="winner">${item.name}</div>
                 `;
+                
+                listDiv.appendChild(row);
 
-                listaResultados.appendChild(card);
-
-                // Animación de aparición en cascada
+                // Animación cascada
                 setTimeout(() => {
-                    card.classList.add('visible');
-                }, index * 600); // 600ms entre cada mes para dar suspenso
+                    row.classList.add('visible');
+                }, index * 500); // 500ms entre cada uno
             });
         }
     </script>
