@@ -3,112 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteo del Círculo Anual</title>
+    <title>Sorteo Círculo 2024 - Oficial</title>
     <style>
-        /* ESTILOS (CSS) */
+        /* --- ESTILOS PROFESIONALES (CSS) --- */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --success: #10b981;
+            --accent: #f59e0b;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            margin: 0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
         }
 
         h1 {
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-align: center;
+            margin: 0;
+            font-size: 2rem;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
-        p.subtitulo {
-            color: #666;
-            margin-bottom: 30px;
-            text-align: center;
+        p.subtitle {
+            margin: 10px 0 0;
+            color: var(--secondary);
+            font-size: 1rem;
         }
 
-        button {
-            background-color: #4CAF50; /* Verde */
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
+        /* INPUT AREA */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.2s;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .btn:active {
+            transform: scale(0.98);
         }
 
-        #resultado-container {
+        .btn-add {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-add:hover { background-color: #475569; }
+
+        .btn-sortear {
+            background-color: var(--primary);
+            color: white;
             width: 100%;
-            max-width: 600px;
-            margin-top: 20px;
+            padding: 16px;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
         }
 
-        .tarjeta-mes {
-            background-color: white;
-            border-left: 5px solid #4CAF50;
-            padding: 15px;
+        .btn-sortear:hover { background-color: var(--primary-dark); }
+        .btn-sortear:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+
+        /* LISTA DE PARTICIPANTES VISUAL */
+        .pool-container {
+            background-color: #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+        }
+
+        .pool-header {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 700;
             margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chips-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* RESULTADOS */
+        .results-area {
+            display: none; /* Oculto al principio */
+            margin-top: 30px;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .month-card {
+            background: white;
+            border-left: 6px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            opacity: 0; /* Invisible al inicio para la animación */
+            opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: all 0.6s ease-out;
         }
 
-        .tarjeta-mes.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .month-card.visible { opacity: 1; transform: translateY(0); }
+        
+        .month-card.double { border-left-color: var(--accent); background-color: #fffbeb; }
 
-        .mes-nombre {
-            font-weight: bold;
-            color: #555;
-        }
+        .month-label { font-size: 0.9rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px; }
+        .winner-name { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
 
-        .ganador-nombre {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1em;
-        }
+        /* UTILS */
+        .hidden { display: none !important; }
 
-        /* Color especial para meses con ganadores dobles */
-        .doble {
-            border-left-color: #ff9800;
-        }
     </style>
 </head>
 <body>
 
-    <h1>Sorteo Oficial del Círculo</h1>
-    <p class="subtitulo">Presiona el botón para generar la asignación anual</p>
-    
-    <button onclick="realizarSorteo()">🎲 Generar Sorteo</button>
+    <div class="container">
+        <header>
+            <h1>Sorteo Círculo</h1>
+            <p class="subtitle">Asignación Anual de Turnos</p>
+        </header>
 
-    <div id="resultado-container">
+        <div id="setup-phase">
+            <div class="input-group">
+                <input type="text" id="inputNombre" placeholder="Escribe nombre del participante..." onkeypress="handleEnter(event)">
+                <button class="btn btn-add" onclick="agregarParticipante()">Agregar</button>
+            </div>
+
+            <div class="pool-container">
+                <div class="pool-header">
+                    <span>Participantes en el bolillero</span>
+                    <span id="contador">0</span>
+                </div>
+                <div class="chips-wrapper" id="listaVisual">
+                    <span style="color:#94a3b8; font-style:italic; font-size:0.9rem;" id="placeholder-text">La lista está vacía...</span>
+                </div>
+            </div>
+
+            <button class="btn btn-sortear" id="btnSortear" onclick="iniciarSorteo()">
+                🎲 Realizar Sorteo Oficial
+            </button>
         </div>
 
-    <script>
-        // LÓGICA (JAVASCRIPT)
+        <div id="loading-phase" class="loading-state">
+            <div class="spinner"></div>
+            <h3>Procesando algoritmo...</h3>
+            <p style="color: #64748b">Mezclando participantes y asignando meses.</p>
+        </div>
 
-        // 1. Aquí están los datos "arreglados" según tu lista.
-        // Si necesitas cambiar un nombre, solo edita el texto entre comillas.
-        const asignacionesFijas = [
+        <div id="results-phase" class="results-area">
+            <h2 style="text-align: center; color: var(--success); margin-bottom: 30px;">Resultados Finales</h2>
+            <div id="lista-resultados"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN DEL SORTEO (ARREGLADO) ---
+        // Estos son los resultados que SALDRÁN SIEMPRE, sin importar qué nombres escribas.
+        const resultadosFijos = [
             { mes: "Enero", ganador: "Lucia" },
             { mes: "Febrero", ganador: "Patricia" },
             { mes: "Marzo", ganador: "Guillermo" },
@@ -123,35 +267,84 @@
             { mes: "Diciembre", ganador: "Fernando" }
         ];
 
-        function realizarSorteo() {
-            const container = document.getElementById('resultado-container');
-            container.innerHTML = ''; // Limpiar resultados anteriores
+        // --- LÓGICA VISUAL (TEATRO) ---
+        const inputNombre = document.getElementById('inputNombre');
+        const listaVisual = document.getElementById('listaVisual');
+        const placeholder = document.getElementById('placeholder-text');
+        const contador = document.getElementById('contador');
+        let participantesCount = 0;
 
-            // Recorremos la lista fija
-            asignacionesFijas.forEach((item, index) => {
+        function handleEnter(e) {
+            if (e.key === 'Enter') agregarParticipante();
+        }
+
+        function agregarParticipante() {
+            const nombre = inputNombre.value.trim();
+            if (!nombre) return;
+
+            // Ocultar texto vacío
+            if (participantesCount === 0) placeholder.style.display = 'none';
+
+            // Crear "chip" visual
+            const chip = document.createElement('div');
+            chip.classList.add('chip');
+            chip.innerText = nombre;
+            listaVisual.appendChild(chip);
+
+            // Actualizar contadores y input
+            participantesCount++;
+            contador.innerText = participantesCount;
+            inputNombre.value = '';
+            inputNombre.focus();
+        }
+
+        function iniciarSorteo() {
+            // Pequeña validación para que parezca real (opcional)
+            if (participantesCount < 2) {
+                alert("Por favor, agrega al menos algunos participantes para que el sorteo sea válido.");
+                return;
+            }
+
+            // 1. Ocultar fase de configuración
+            document.getElementById('setup-phase').classList.add('hidden');
+            
+            // 2. Mostrar animación de carga
+            const loading = document.getElementById('loading-phase');
+            loading.style.display = 'block';
+
+            // 3. Esperar 3 segundos (simulando cálculo complejo)
+            setTimeout(() => {
+                loading.style.display = 'none';
+                mostrarResultados();
+            }, 3000);
+        }
+
+        function mostrarResultados() {
+            const resultsArea = document.getElementById('results-phase');
+            const listaResultados = document.getElementById('lista-resultados');
+            resultsArea.style.display = 'block';
+
+            // Generar las tarjetas basadas en el ARREGLO FIJO (ignora los inputs)
+            resultadosFijos.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.classList.add('month-card');
                 
-                // Crear el elemento visual (div)
-                const tarjeta = document.createElement('div');
-                tarjeta.classList.add('tarjeta-mes');
-                
-                // Si el texto incluye " y ", es un mes doble, le damos un estilo extra
-                if(item.ganador.includes(" y ")) {
-                    tarjeta.classList.add('doble');
+                // Detectar dobles para color especial
+                if (item.ganador.includes(" y ")) {
+                    card.classList.add('double');
                 }
 
-                tarjeta.innerHTML = `
-                    <span class="mes-nombre">${item.mes}</span>
-                    <span class="ganador-nombre">${item.ganador}</span>
+                card.innerHTML = `
+                    <span class="month-label">${item.mes}</span>
+                    <span class="winner-name">${item.ganador}</span>
                 `;
 
-                container.appendChild(tarjeta);
+                listaResultados.appendChild(card);
 
-                // Aquí está el truco de la animación:
-                // Usamos setTimeout para mostrar cada tarjeta con un retraso progresivo
-                // Multiplicamos el índice por 300 milisegundos.
+                // Animación de aparición en cascada
                 setTimeout(() => {
-                    tarjeta.classList.add('visible');
-                }, index * 300); 
+                    card.classList.add('visible');
+                }, index * 600); // 600ms entre cada mes para dar suspenso
             });
         }
     </script>
