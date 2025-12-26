@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteo del Círculo Anual</title>
+    <style>
+        /* ESTILOS (CSS) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p.subtitulo {
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado-container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .tarjeta-mes {
+            background-color: white;
+            border-left: 5px solid #4CAF50;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0; /* Invisible al inicio para la animación */
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .tarjeta-mes.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mes-nombre {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .ganador-nombre {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        /* Color especial para meses con ganadores dobles */
+        .doble {
+            border-left-color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sorteo Oficial del Círculo</h1>
+    <p class="subtitulo">Presiona el botón para generar la asignación anual</p>
+    
+    <button onclick="realizarSorteo()">🎲 Generar Sorteo</button>
+
+    <div id="resultado-container">
+        </div>
+
+    <script>
+        // LÓGICA (JAVASCRIPT)
+
+        // 1. Aquí están los datos "arreglados" según tu lista.
+        // Si necesitas cambiar un nombre, solo edita el texto entre comillas.
+        const asignacionesFijas = [
+            { mes: "Enero", ganador: "Lucia" },
+            { mes: "Febrero", ganador: "Patricia" },
+            { mes: "Marzo", ganador: "Guillermo" },
+            { mes: "Abril", ganador: "Candela" },
+            { mes: "Mayo", ganador: "Juan" },
+            { mes: "Junio", ganador: "Carlos" },
+            { mes: "Julio", ganador: "Braian" },
+            { mes: "Agosto", ganador: "Elizabeth y Javier" },
+            { mes: "Septiembre", ganador: "Elias y Leandro" },
+            { mes: "Octubre", ganador: "Analia" },
+            { mes: "Noviembre", ganador: "Estefania" },
+            { mes: "Diciembre", ganador: "Fernando" }
+        ];
+
+        function realizarSorteo() {
+            const container = document.getElementById('resultado-container');
+            container.innerHTML = ''; // Limpiar resultados anteriores
+
+            // Recorremos la lista fija
+            asignacionesFijas.forEach((item, index) => {
+                
+                // Crear el elemento visual (div)
+                const tarjeta = document.createElement('div');
+                tarjeta.classList.add('tarjeta-mes');
+                
+                // Si el texto incluye " y ", es un mes doble, le damos un estilo extra
+                if(item.ganador.includes(" y ")) {
+                    tarjeta.classList.add('doble');
+                }
+
+                tarjeta.innerHTML = `
+                    <span class="mes-nombre">${item.mes}</span>
+                    <span class="ganador-nombre">${item.ganador}</span>
+                `;
+
+                container.appendChild(tarjeta);
+
+                // Aquí está el truco de la animación:
+                // Usamos setTimeout para mostrar cada tarjeta con un retraso progresivo
+                // Multiplicamos el índice por 300 milisegundos.
+                setTimeout(() => {
+                    tarjeta.classList.add('visible');
+                }, index * 300); 
+            });
+        }
+    </script>
+</body>
+</html>
